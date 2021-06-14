@@ -81,7 +81,7 @@ def getPrediction():
         # fix random seed for reproducibility
         numpy.random.seed(3)
 
-        testX = dataset[:, 0]
+        testX = numpy.array(dataset[:, 0])
         # reshape input to be [samples, time steps, features]
         testX = numpy.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
 
