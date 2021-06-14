@@ -19,7 +19,7 @@ db = pymysql.connect(
 cursor = db.cursor()
 
 def create():
-    sql = 'create table currency(timestamp timestamp primary key, prediction real, real real)'
+    sql = 'create table currency(timestamp timestamp primary key, prediction real, realVal real)'
     cursor.execute(sql)
     db.commit()
 
@@ -30,7 +30,7 @@ def insert(data):
 
 def update(data):
     for d in data:
-        sql = 'update currency set real=? where timestamp=?'
+        sql = 'update currency set realVal=? where timestamp=?'
         cursor.execute(sql, (d[1], d[0]))
         db.commit() 
 
