@@ -1,0 +1,10 @@
+Django
+djangorestframework
+django-cors-headers
+mysqlclient
+numpy
+matplotlib
+pandas
+tensorflow
+keras
+sklearn

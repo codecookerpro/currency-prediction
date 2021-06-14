@@ -1,0 +1,19 @@
+# dependencies
+/frontend/node_modules
+
+# production
+/frontend/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+/frontend/.eslintcache
+
+# Byte-compiled / optimized / DLL files
+/backend/forexserver/__pycache__/
+/backend/views/__pycache__/
+/prediction/src/__pycache__/
+
