@@ -8,11 +8,11 @@ from .predict import *
 
 # Create your views here.
 @api_view(['GET'])
-def predict(request):
-  prediction = getPrediction()
+def getPredict(request):
+  prediction = [1, 2, 3, 4, 5]
 
   response = JsonResponse({
-    "prediction": json.dumps(prediction.tolist())
+    "prediction": json.dumps(prediction)
   })
   response['Access-Control-Allow-Origin'] = '*'
 
