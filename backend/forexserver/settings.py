@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'forexserver.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cenius',
+        'NAME': 'ceniusdb',
         'USER': 'admin',
         'PASSWORD': '1q2w#E$R',
-        'HOST': 'cenius.cykbq2tyxcdu.us-east-2.rds.amazonaws.com',
+        'HOST': 'ceniusdb.cykbq2tyxcdu.us-east-2.rds.amazonaws.com',
         'PORT': 3306
     }
 }

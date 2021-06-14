@@ -3,9 +3,9 @@ from time import sleep
 from .predict import getPrediction
 
  # Connect to the database, library name: cenius
-host = 'cenius.cykbq2tyxcdu.us-east-2.rds.amazonaws.com'
+host = 'ceniusdb.cykbq2tyxcdu.us-east-2.rds.amazonaws.com'
 port = 3306
-dbname = 'cenius'
+dbname = 'ceniusdb'
 user = 'admin'
 pwd = '1q2w#E$R'
 db = pymysql.connect(
@@ -19,7 +19,7 @@ db = pymysql.connect(
 cursor = db.cursor()
 
 def create():
-    sql = 'create table currency(timestamp timestamp, prediction float(2), real float(2))'
+    sql = 'create table currency(timestamp timestamp primary key, prediction float(2), real float(2))'
     cursor.execute(sql)
     db.commit()
 

@@ -17,7 +17,7 @@ def getPrediction():
     ]
 
     params = {
-        'limit': "10"
+        'limit': "9"
     }
 
     headers = {
@@ -27,7 +27,7 @@ def getPrediction():
     }
 
     model = Sequential()
-    model.add(LSTM(4, input_dim=look_back))
+    model.add(LSTM(4, input_dim=10))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
 
@@ -57,22 +57,9 @@ def getPrediction():
         # fix random seed for reproducibility
         numpy.random.seed(3)
 
-        # convert an array of values into a dataset matrix
-        def create_dataset(dataset, look_back=1):
-            dataX, dataY = [], []
-            for i in range(len(dataset)-look_back):
-                a = dataset[i:(i+look_back), 0]
-                dataX.append(a)
-                dataY.append(dataset[i + look_back, 0])
-            return numpy.array(dataX), numpy.array(dataY)
-
-        # reshape into X=t and Y=t+1
-        look_back = 10
-        testX, testY = create_dataset(dataset, look_back)
-
+        testX = dataset[:, 0]
         # reshape input to be [samples, time steps, features]
         testX = numpy.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
-
 
         model.load_weights('models/minute_model_weights')
 
