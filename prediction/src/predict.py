@@ -41,7 +41,7 @@ def getPrediction():
     res = []
 
     for option in options:
-        url = "https://min-api.cryptocompare.com/data/v2/histo" + option + "minute?fsym=BTC&tsym=GBP"
+        url = "https://min-api.cryptocompare.com/data/v2/histo" + option + "?fsym=BTC&tsym=GBP"
 
         response = requests.request("GET", url, params=params, headers=headers)
 
