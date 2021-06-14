@@ -10,8 +10,8 @@ from time import sleep
 def updateModel():
     while True:
         print("=== Update Model Every 10 Min ===")
-        # models.run()
-        sleep(900)
+        models.run()
+        sleep(1800)
 
 def updateDB():
     database.create()

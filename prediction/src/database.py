@@ -19,14 +19,20 @@ db = pymysql.connect(
 cursor = db.cursor()
 
 def create():
-    sql = 'create table currency(timestamp timestamp primary key, prediction float(2), real float(2))'
+    sql = 'create table currency(timestamp timestamp primary key, prediction real, real real)'
     cursor.execute(sql)
     db.commit()
 
 def insert(data):
-    sql = 'insert into user(timestamp, prediction, real) values(?, %f, %f) on duplicate key update'
+    sql = 'insert into currency(timestamp, prediction) values(?, ?) on duplicate key update'
     cursor.execute(sql, data)
     db.commit() 
+
+def update(data):
+    for d in data:
+        sql = 'update currency set real=? where timestamp=?'
+        cursor.execute(sql, (d[1], d[0]))
+        db.commit() 
 
 '''
  # Close the database connection
@@ -36,6 +42,11 @@ db.close()
 
 def migrate():
     while True:
+        # insert prediction
         data = getPrediction()
         insert(data)
+
+        #update current currency
+        data = getCurrent()
+        update(data)
         sleep(60)

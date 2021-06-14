@@ -10,10 +10,17 @@ from sklearn.metrics import mean_squared_error
 import requests
 import json
 
+
+currentMinVal = ()
+currentHourVal = ()
+currentDayVal = ()
+
 def getPrediction():
 
-    urls = [
-        "https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=GBP"
+    options = [
+        "minute",
+        "hour",
+        "day"
     ]
 
     params = {
@@ -31,22 +38,39 @@ def getPrediction():
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
 
-    res = [(1623683192, 123.123, 234.234)]
+    res = []
 
-    for url in urls:
+    for option in options:
+        url = "https://min-api.cryptocompare.com/data/v2/histo" + option + "minute?fsym=BTC&tsym=GBP"
+
         response = requests.request("GET", url, params=params, headers=headers)
 
         apiData = json.loads(response.text)
         
         dataset = []
-        times = [0]
+        times = []
+        initTime = 0
+        pnext = 0
 
         for item in apiData["Data"]["Data"]:
             dataset.append(item["open"])
-            times[0] = item["time"]
+            initTime = item["time"]
 
-        for i in range(10):
-            times.append(times[0] + 60 * (i + 1))
+        if option == "minute":
+            pnext = 10
+            currentMinVal = (initTime, dataset[9])
+            for i in range(pnext):
+                times.append(initTime + 60 * (i + 1))
+        elif option == "hour":
+            pnext = 12
+            currentHourVal = (initTime, dataset[9])
+            for i in range(pnext):
+                times.append(initTime + 3600 * (i + 1))
+        else:
+            pnext = 365
+            currentDayVal = (initTime, dataset[9])
+            for i in range(pnext):
+                times.append(initTime + 86400 * (i + 1))
 
         dataset = numpy.array(dataset)
         dataset = dataset.reshape(-1, 1) #returns a numpy array
@@ -65,7 +89,7 @@ def getPrediction():
 
         # make predictions
         result = []
-        for i in range(10):
+        for i in range(pnext):
             testPredict = model.predict(testX)
             testX[0][0][:9] = testX[0][0][1:10]
             testX[0][0][9] = testPredict[0][0]
@@ -73,7 +97,17 @@ def getPrediction():
 
         # invert predictions
         result = numpy.array(result).reshape(1, -1)
-        testPredict = scaler.inverse_transform(result)
-        testPredict = testPredict.flatten()
+        predict = scaler.inverse_transform(result).flatten()
 
+        for i in range(pnext):
+            res.append((times[i], predict[i]))
+
+    return res
+
+def getCurrent():
+    res = [
+        currentMinVal, 
+        currentHourVal, 
+        currentDayVal
+    ]
     return res
