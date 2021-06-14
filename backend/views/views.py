@@ -4,7 +4,6 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from django.http import JsonResponse
-from .predict import *
 
 # Create your views here.
 @api_view(['GET'])
