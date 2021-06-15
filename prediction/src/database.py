@@ -24,13 +24,13 @@ def create():
     db.commit()
 
 def insert(data):
-    sql = 'insert into currency(timestamp, prediction) values(?, ?) on duplicate key update'
+    sql = 'insert into currency(timestamp, prediction) values(%s, %s) on duplicate key update'
     cursor.execute(sql, data)
     db.commit() 
 
 def update(data):
     for d in data:
-        sql = 'update currency set realVal=? where timestamp=?'
+        sql = 'update currency set realVal=%s where timestamp=%s'
         cursor.execute(sql, (d[1], d[0]))
         db.commit() 
 
