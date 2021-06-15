@@ -19,7 +19,7 @@ db = pymysql.connect(
 cursor = db.cursor()
 
 def create():
-    sql = 'create table if not exists currency(t integer primary key, prediction real, realVal real)'
+    sql = 'create table if not exists currency(t integer primary key, prediction real default null, realVal real default null)'
     cursor.execute(sql)
     db.commit()
 
