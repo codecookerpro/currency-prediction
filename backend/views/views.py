@@ -13,7 +13,7 @@ def getPredict(request, predinterval):
 
     data = Currency.objects.all()
 
-    serializer = StudentSerializer(data, context={'request': request}, many=True)
+    serializer = CurrencySerializer(data, context={'request': request}, many=True)
 
     prediction = serializer.data
 
