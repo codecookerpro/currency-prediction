@@ -11,7 +11,7 @@ def getPredict(request):
   prediction = [1, 2, 3, 4, 5]
 
   response = JsonResponse({
-    "prediction": json.dumps(prediction)
+    "prediction": prediction
   })
   response['Access-Control-Allow-Origin'] = '*'
 

@@ -19,18 +19,18 @@ db = pymysql.connect(
 cursor = db.cursor()
 
 def create():
-    sql = 'create table if not exists currency(timestamp timestamp primary key, prediction real, realVal real)'
+    sql = 'create table if not exists currency(t integer primary key, prediction real, realVal real)'
     cursor.execute(sql)
     db.commit()
 
 def insert(data):
-    sql = 'insert into currency(timestamp, prediction) values(%s, %s) on duplicate key update'
+    sql = 'insert into currency(t, prediction) values(%s, %s) on duplicate key update'
     cursor.execute(sql, data)
     db.commit() 
 
 def update(data):
     for d in data:
-        sql = 'update currency set realVal=%s where timestamp=%s'
+        sql = 'update currency set realVal=%s where t=%s'
         cursor.execute(sql, (d[1], d[0]))
         db.commit() 
 
