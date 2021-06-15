@@ -4,12 +4,18 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from django.http import JsonResponse
+from .models import Currency
+from .serializers import *
 
 # Create your views here.
 @api_view(['GET'])
 def getPredict(request, predinterval):
 
-    prediction = []
+    data = Currency.objects.all()
+
+    serializer = StudentSerializer(data, context={'request': request}, many=True)
+
+    prediction = serializer.data
 
     if predinterval == "minone":
         prediction = [1, 2]
