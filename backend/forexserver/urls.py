@@ -18,5 +18,5 @@ from django.urls import path, re_path
 from views import views
 
 urlpatterns = [
-    re_path(r'^api/getPredict/$', views.getPredict),
+    re_path(r'^api/getPredict/(?P<predinterval>\w+)/$', views.getPredict),
 ]

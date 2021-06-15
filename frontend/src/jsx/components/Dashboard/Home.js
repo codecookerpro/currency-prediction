@@ -18,9 +18,9 @@ const Home = () => {
   //   dataset: "[]"
   // });
 
-  // axios
-  //   .get("http://18.223.3.218:80/api/predict/")
-  //   .then(res => setData(res.data));
+  axios
+    .get("http://18.223.3.218:80/api/getPredict/nextmin/")
+    .then(res => console.log(res.data));
 
   const [title, setTitle] = useState("1 Minute");
 

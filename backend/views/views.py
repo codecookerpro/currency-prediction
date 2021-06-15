@@ -7,13 +7,21 @@ from django.http import JsonResponse
 
 # Create your views here.
 @api_view(['GET'])
-def getPredict(request):
-  prediction = [1, 2, 3, 4, 5]
+def getPredict(request, predinterval):
 
-  response = JsonResponse({
-    "prediction": prediction
-  })
-  response['Access-Control-Allow-Origin'] = '*'
+    prediction = []
 
-  return response
+    if predinterval == "minone":
+        prediction = [1, 2]
+    elif predinterval == "minten":
+        prediction = [1, 2, 3]
+    else:
+        prediction = [0]
+
+    response = JsonResponse({
+      "prediction": prediction,
+    })
+    response['Access-Control-Allow-Origin'] = '*'
+
+    return response
 
