@@ -24,7 +24,7 @@ def create():
     db.commit()
 
 def insert(data):
-    sql = 'insert into currency(t, prediction) values(%s, %s) on duplicate key update'
+    sql = 'insert into currency(t, prediction) values(%s, %s) on duplicate key update values prediction=%s'
     cursor.execute(sql, data)
     db.commit() 
 
