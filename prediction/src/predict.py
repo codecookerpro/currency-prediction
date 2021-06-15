@@ -33,8 +33,10 @@ def getPrediction():
         'api_key': "499372a892c79cd63eeb10ff08957a0fb9983c0c8d7170f9f6fb3154c04f1f37"
     }
 
+    look_back = 10
+
     model = Sequential()
-    model.add(LSTM(4, input_dim=10))
+    model.add(LSTM(4, input_dim=look_back))
     model.add(Dense(1))
     model.compile(loss='mean_squared_error', optimizer='adam')
 
@@ -81,9 +83,9 @@ def getPrediction():
         # fix random seed for reproducibility
         numpy.random.seed(3)
 
-        testX = numpy.array(dataset[:, 0])
+        testX = numpy.array(dataset)
         # reshape input to be [samples, time steps, features]
-        testX = numpy.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
+        testX = numpy.reshape(testX, (1, 1, look_back))
 
         model.load_weights('models/minute_model_weights')
 
