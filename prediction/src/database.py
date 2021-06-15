@@ -44,6 +44,7 @@ def migrate():
     while True:
         # insert prediction
         data = getPrediction()
+        print(data)
         insert(data)
 
         #update current currency
