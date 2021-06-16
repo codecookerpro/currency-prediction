@@ -102,7 +102,7 @@ def getPrediction():
         predict = scaler.inverse_transform(result).flatten()
 
         for i in range(pnext):
-            res.append((times[i], predict[i]))
+            res.append((times[i], predict[i], predict[i]))
 
     return res
 
