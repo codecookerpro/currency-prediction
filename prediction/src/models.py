@@ -82,7 +82,7 @@ def updateModel(period, init):
             times.append(item["time"])
 
         for i in range(len(predict)):
-            res.append((times[i+9], predict[i], trainY[i]))
+            res.append((times[i+9], trainPredict[i], trainY[i]))
 
         host = 'ceniusdb.cykbq2tyxcdu.us-east-2.rds.amazonaws.com'
         port = 3306
