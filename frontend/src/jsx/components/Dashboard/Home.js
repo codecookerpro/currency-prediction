@@ -21,7 +21,16 @@ const Home = () => {
 
   axios
     .get("http://18.223.3.218:80/api/getPredict/nextmin/")
-    .then(res => setData(res.data));
+    .then(res => {
+      let t=res.prediction.map(el => el.t)
+      let pred=res.prediction.map(el => el.prediction)
+      let real=res.prediction.map(el => el.realVal)
+      setData({
+        timestamp: t,
+        prediction: pred,
+        realCurr: real
+      })
+    });
 
   const [title, setTitle] = useState("1 Minute");
 

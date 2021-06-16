@@ -19,15 +19,6 @@ def getPredict(request, predinterval):
 
     prediction = serializer.data
 
-    t = []
-    pred = []
-    real = []
-
-    for d in prediction['prediction']:
-        t.append(d['t'])
-        prediction.append(d['prediction'])
-        real.append(d['realVal'])
-
     # if predinterval == "minone":
     #     prediction = [1, 2]
     # elif predinterval == "minten":
@@ -36,9 +27,7 @@ def getPredict(request, predinterval):
     #     prediction = [0]
 
     response = JsonResponse({
-      timestamp: t,
-      prediction: pred,
-      realCurr: real
+      "prediction": prediction
     })
     response['Access-Control-Allow-Origin'] = '*'
 
