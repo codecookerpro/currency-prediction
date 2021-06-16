@@ -1,6 +1,6 @@
 import pymysql
 from time import sleep
-from .predict import getPrediction
+from .predict import getPrediction, getCurrent
 
  # Connect to the database, library name: cenius
 host = 'ceniusdb.cykbq2tyxcdu.us-east-2.rds.amazonaws.com'
