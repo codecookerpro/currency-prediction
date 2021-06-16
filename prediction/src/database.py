@@ -25,17 +25,17 @@ def create():
 
 def insert(newPred, updatePred):
     sql = 'insert into currency(t, prediction) select %s, %s where not exists(select * from currency where t=%s)'
-    cursor.execute(sql, newPred)
+    cursor.executemany(sql, newPred)
     db.commit() 
 
     sql = 'update currency set prediction=%s where t=%s'
-    cursor.execute(sql, updatePred)
+    cursor.executemany(sql, updatePred)
     db.commit() 
 
 def update(data):
     for d in data:
         sql = 'update currency set realVal=%s where t=%s'
-        cursor.execute(sql, (d[1], d[0]))
+        cursor.executemany(sql, (d[1], d[0]))
         db.commit() 
 
 '''
