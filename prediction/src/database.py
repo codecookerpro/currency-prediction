@@ -33,10 +33,9 @@ def insert(newPred, updatePred):
     db.commit() 
 
 def update(data):
-    for d in data:
-        sql = 'update currency set realVal=%s where t=%s'
-        cursor.executemany(sql, (d[1], d[0]))
-        db.commit() 
+    sql = 'update currency set realVal=%s where t=%s'
+    cursor.executemany(sql, data)
+    db.commit() 
 
 '''
  # Close the database connection
@@ -59,6 +58,5 @@ def migrate():
 
         #update current currency
         data = getCurrent()
-        print(data)
         update(data)
         sleep(60)
