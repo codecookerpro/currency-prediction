@@ -17,12 +17,12 @@ def getPredict(request, predinterval):
 
     prediction = serializer.data
 
-    if predinterval == "minone":
-        prediction = [1, 2]
-    elif predinterval == "minten":
-        prediction = [1, 2, 3]
-    else:
-        prediction = [0]
+    # if predinterval == "minone":
+    #     prediction = [1, 2]
+    # elif predinterval == "minten":
+    #     prediction = [1, 2, 3]
+    # else:
+    #     prediction = [0]
 
     response = JsonResponse({
       "prediction": prediction,
