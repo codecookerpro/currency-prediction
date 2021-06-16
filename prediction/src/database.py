@@ -23,9 +23,13 @@ def create():
     cursor.execute(sql)
     db.commit()
 
-def insert(data):
-    sql = 'insert into currency(t, prediction) values(%s, %s) on duplicate key update prediction=%s'
-    cursor.execute(sql, data)
+def insert(newPred, updatePred):
+    sql = 'insert into currency(t, prediction) select %s, %s where not exists(select * from currency where t=%s)'
+    cursor.execute(sql, newPred)
+    db.commit() 
+
+    sql = 'update currency set prediction=%s where t=%s'
+    cursor.execute(sql, updatePred)
     db.commit() 
 
 def update(data):
@@ -44,8 +48,14 @@ def migrate():
     while True:
         # insert prediction
         data = getPrediction()
-        print(data)
-        insert(data)
+
+        newPred = []
+        updatePred = []
+
+        for d in data:
+            newPred.append((d[0], d[1], d[0]))
+            updatePred.append((d[1], d[0]))
+        insert(newPred, updatePred)
 
         #update current currency
         data = getCurrent()
