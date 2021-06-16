@@ -45,6 +45,7 @@ db.close()
 '''
 
 def migrate():
+    print(getCurrent())
     while True:
         # insert prediction
         data = getPrediction()
