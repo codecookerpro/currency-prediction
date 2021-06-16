@@ -81,7 +81,7 @@ def updateModel(period, init):
         for item in apiData["Data"]["Data"]:
             times.append(item["time"])
 
-        for i in range(len(predict)):
+        for i in range(len(trainPredict)):
             res.append((times[i+9], trainPredict[i], trainY[i]))
 
         host = 'ceniusdb.cykbq2tyxcdu.us-east-2.rds.amazonaws.com'
