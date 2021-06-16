@@ -13,14 +13,15 @@ const Home = () => {
   }, []);
   // console.log(background.value === "dark");
 
-  // const [data, setData] = useState({
-  //   prediction: "[]",
-  //   dataset: "[]"
-  // });
+  const [data, setData] = useState({
+    timestamp: [],
+    prediction: [],
+    realCurr: []
+  });
 
   axios
     .get("http://18.223.3.218:80/api/getPredict/nextmin/")
-    .then(res => console.log(res.data));
+    .then(res => setData(res.data));
 
   const [title, setTitle] = useState("1 Minute");
 
@@ -28,11 +29,11 @@ const Home = () => {
     series: [
       {
         name: "Estimation",
-        data: JSON.parse(mockData.prediction),
+        data: data.prediction,
       },
       {
         name: "Real Currency",
-        data: JSON.parse(mockData.dataset),
+        data: data.realCurr,
       },
     ],
     options: {
@@ -81,7 +82,7 @@ const Home = () => {
       //   },
       // },
       xaxis: {
-        categories: JSON.parse(mockData.timestamp),
+        categories: data.timestamp,
         tickAmount: 10,
         tooltip: {
           enabled: false

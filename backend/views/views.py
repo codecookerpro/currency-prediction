@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from .models import Currency
 from .serializers import *
 
+import json
+
 # Create your views here.
 @api_view(['GET'])
 def getPredict(request, predinterval):
@@ -17,6 +19,15 @@ def getPredict(request, predinterval):
 
     prediction = serializer.data
 
+    t = []
+    pred = []
+    real = []
+
+    for d in prediction['prediction']:
+        t.append(d['t'])
+        prediction.append(d['prediction'])
+        real.append(d['realVal'])
+
     # if predinterval == "minone":
     #     prediction = [1, 2]
     # elif predinterval == "minten":
@@ -25,7 +36,9 @@ def getPredict(request, predinterval):
     #     prediction = [0]
 
     response = JsonResponse({
-      "prediction": prediction,
+      timestamp: t,
+      prediction: pred,
+      realCurr: real
     })
     response['Access-Control-Allow-Origin'] = '*'
 
