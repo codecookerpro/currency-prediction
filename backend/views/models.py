@@ -5,5 +5,8 @@ class Currency(models.Model):
     prediction = models.FloatField(blank=True, null=True)
     realVal = models.FloatField(blank=True, null=True)
 
+    class Meta:
+        db_table = 'currency'
+
     def __str__(self):
-        return self.name
+        return self.t
