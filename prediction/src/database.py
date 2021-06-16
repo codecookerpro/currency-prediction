@@ -45,7 +45,6 @@ db.close()
 '''
 
 def migrate():
-    print(getCurrent())
     while True:
         # insert prediction
         data = getPrediction()
@@ -60,5 +59,6 @@ def migrate():
 
         #update current currency
         data = getCurrent()
+        print(data)
         update(data)
         sleep(60)

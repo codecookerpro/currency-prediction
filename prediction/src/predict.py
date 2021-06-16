@@ -60,16 +60,19 @@ def getPrediction():
 
         if option == "minute":
             pnext = 10
+            global currentMinVal
             currentMinVal = (initTime, dataset[9])
             for i in range(pnext):
                 times.append(initTime + 60 * (i + 1))
         elif option == "hour":
             pnext = 12
+            global currentHourVal
             currentHourVal = (initTime, dataset[9])
             for i in range(pnext):
                 times.append(initTime + 3600 * (i + 1))
         else:
             pnext = 365
+            global currentDayVal
             currentDayVal = (initTime, dataset[9])
             for i in range(pnext):
                 times.append(initTime + 86400 * (i + 1))
