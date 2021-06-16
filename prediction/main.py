@@ -8,9 +8,11 @@ from multiprocessing import Process
 from time import sleep
 
 def updateModel():
+    init = True
     while True:
         print("=== Update Model Every 10 Min ===")
-        models.run()
+        models.run(init)
+        init = False
         sleep(1800)
 
 def updateDB():

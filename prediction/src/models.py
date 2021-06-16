@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error
 import requests
 import json
 
-def updateModel(period):
+def updateModel(period, init):
 
     url = "https://min-api.cryptocompare.com/data/v2/histo" + period + "?fsym=BTC&tsym=GBP"
     params = {
@@ -70,12 +70,49 @@ def updateModel(period):
 
     model.save_weights('models/' + period + '_model_weights')
 
-def run():
-    updateModel("minute")
+    if init == True:
+        trainPredict = model.predict(trainX)
+        trainPredict = scaler.inverse_transform(trainPredict).flatten()
+        trainY = scaler.inverse_transform([trainY]).flatten()
+
+        res = []
+
+        times = []
+        for item in apiData["Data"]["Data"]:
+            times.append(item["time"])
+
+        for i in range(len(predict)):
+            res.append((times[i+9], predict[i], trainY[i]))
+
+        host = 'ceniusdb.cykbq2tyxcdu.us-east-2.rds.amazonaws.com'
+        port = 3306
+        dbname = 'ceniusdb'
+        user = 'admin'
+        pwd = '1q2w#E$R'
+        db = pymysql.connect(
+            host=host,
+            port=port,
+            user=user,
+            password=pwd,
+            db=dbname
+        )
+         # Create a cursor
+        cursor = db.cursor()
+
+        sql = 'create table if not exists currency(t integer primary key, prediction real default null, realVal real default null)'
+        cursor.execute(sql)
+        db.commit()
+
+        sql = 'insert into currency(t, prediction, realVal) values(%s, %s, %s)'
+        cursor.executemany(sql, res)
+        db.commit() 
+
+def run(init):
+    updateModel("minute", init)
     print("=== Updating Minute Model Done ===\n")
 
-    updateModel("hour")
+    updateModel("hour", init)
     print("=== Updating Hour Model Done ===\n")
 
-    updateModel("day")
+    updateModel("day", init)
     print("=== Updating Day Model Done ===\n")
