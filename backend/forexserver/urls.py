@@ -15,8 +15,10 @@ Including another URLconf
 """
 
 from django.urls import path, re_path
+from django.conf.urls import include, url
 from views import views
 
 urlpatterns = [
     re_path(r'^api/getPredict/(?P<predinterval>\w+)/$', views.getPredict),
+    url(r'', include('views.urls'))
 ]
