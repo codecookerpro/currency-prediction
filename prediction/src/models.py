@@ -83,7 +83,7 @@ def updateModel(period, init):
             times.append(item["time"])
 
         for i in range(len(trainPredict)):
-            res.append((times[i+9], trainPredict[i], trainY[i]))
+            res.append((times[i+9], trainPredict[i], trainY[i], times[i+9]))
 
         host = 'ceniusdb.cykbq2tyxcdu.us-east-2.rds.amazonaws.com'
         port = 3306
@@ -104,7 +104,7 @@ def updateModel(period, init):
         cursor.execute(sql)
         db.commit()
 
-        sql = 'insert into currency(t, prediction, realVal) values(%s, %s, %s)'
+        sql = 'insert into currency(t, prediction, realVal) select %s, %s, %s where not exists(select * from currency where t=%s)'
         cursor.executemany(sql, res)
         db.commit() 
 
