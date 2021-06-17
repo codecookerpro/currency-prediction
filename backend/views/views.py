@@ -8,12 +8,16 @@ from .models import Currency
 from .serializers import *
 
 import json
+import time
 
 # Create your views here.
 @api_view(['GET'])
 def getPredict(request, predinterval):
 
-    data = Currency.objects.all()
+    if predinterval == "minone":
+        data = Currency.objects.filter(t > (int(time.time()) - 100000))
+    else:
+        data = Currency.objects.all()
 
     serializer = CurrencySerializer(data, context={'request': request}, many=True)
 
