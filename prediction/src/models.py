@@ -9,6 +9,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 import requests
 import json
+import pymysql
 
 def updateModel(period, init):
 
