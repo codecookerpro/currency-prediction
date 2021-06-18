@@ -33,7 +33,7 @@ def getPredict(request, predinterval):
     response = JsonResponse({
       "prediction": prediction
     })
-    response['Access-Control-Allow-Origin'] = '*'
+    # response['Access-Control-Allow-Origin'] = '*'
 
     return response
 
