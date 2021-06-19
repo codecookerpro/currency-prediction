@@ -34,6 +34,7 @@ def getPredict(request, predinterval):
       "prediction": prediction
     })
     response['Access-Control-Allow-Origin'] = '*'
+    response['Content-Security-Policy'] = 'upgrade-insecure-requests'
 
     return response
 
