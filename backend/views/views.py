@@ -15,7 +15,7 @@ import time
 def getPredict(request, predinterval):
 
     if predinterval == "minone":
-        data = Currency.objects.filter(t__gte=(int(time.time()) - 100000)).exclude(t__gte=(int(time.time()) + 600))
+        data = Currency.objects.filter(t__gte=(int(time.time()) - 18000)).exclude(t__gte=(int(time.time()) + 600))
     else:
         data = Currency.objects.all()
 

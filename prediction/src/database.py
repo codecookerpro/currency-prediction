@@ -59,4 +59,4 @@ def migrate():
         #update current currency
         data = getCurrent()
         update(data)
-        sleep(60)
+        sleep(30)
